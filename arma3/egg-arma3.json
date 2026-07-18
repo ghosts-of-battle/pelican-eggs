@@ -20,9 +20,9 @@
         "Arma 3 (Upstream)": "ghcr.io/parkervcp/games:arma3"
     },
     "file_denylist": [],
-    "startup": "./{{SERVER_BINARY}} -par=startup_params_server.txt",
+    "startup": "./{{SERVER_BINARY}} -par=startup_params_server.txt -world=empty -bandwidthAlg=2",
     "config": {
-        "files": "{\n    \"server.cfg\": {\n        \"parser\": \"file\",\n        \"find\": {\n            \"password=\": \"password = \\\"{{server.environment.SERVER_PASSWORD}}\\\";\",\n            \"//password=\": \"password = \\\"{{server.environment.SERVER_PASSWORD}}\\\";\",\n            \"password =\": \"password = \\\"{{server.environment.SERVER_PASSWORD}}\\\";\",\n            \"//password =\": \"password = \\\"{{server.environment.SERVER_PASSWORD}}\\\";\",\n            \"maxPlayers\": \"maxPlayers = {{server.environment.MAX_PLAYERS}};\",\n            \"headlessClients\": \"headlessClients[] = { \\\"127.0.0.1\\\" };\",\n            \"localClient\": \"localClient[] = { \\\"127.0.0.1\\\" };\",\n            \"hostname\": \"hostname = \\\"{{server.environment.SERVER_NAME}}\\\";\",\n            \"passwordAdmin\": \"passwordAdmin = \\\"{{server.environment.ADMIN_PASSWORD}}\\\";\",\n            \"serverCommandPassword\": \"serverCommandPassword = \\\"{{server.environment.COMMAND_PASSWORD}}\\\";\",\n            \"admins[]\": \"admins[] = { {{server.environment.ADMINS}} };\",\n            \"motdInterval\": \"motdInterval = {{server.environment.MOTD_INTERVAL}};\",\n            \"timeStampFormat\": \"timeStampFormat = \\\"{{server.environment.TIMESTAMP_FORMAT}}\\\";\",\n            \"verifySignatures\": \"verifySignatures = {{server.environment.VERIFY_SIGNATURES}};\",\n            \"kickDuplicate\": \"kickDuplicate = {{server.environment.KICK_DUPLICATE}};\",\n            \"allowedFilePatching\": \"allowedFilePatching = {{server.environment.ALLOWED_FILE_PATCHING}};\",\n            \"requiredBuild\": \"requiredBuild = {{server.environment.REQUIRED_BUILD}};\",\n            \"loopback\": \"loopback = {{server.environment.LOOPBACK}};\",\n            \"upnp\": \"upnp = {{server.environment.UPNP}};\",\n            \"forceRotorLibSimulation\": \"forceRotorLibSimulation = {{server.environment.FORCE_ROTORLIB}};\",\n            \"disableVoN\": \"disableVoN = {{server.environment.DISABLE_VON}};\",\n            \"vonCodec =\": \"vonCodec = {{server.environment.VON_CODEC}};\",\n            \"vonCodecQuality\": \"vonCodecQuality = {{server.environment.VON_CODEC_QUALITY}};\",\n            \"persistent\": \"persistent = {{server.environment.PERSISTENT}};\",\n            \"drawingInMap\": \"drawingInMap = {{server.environment.DRAWING_IN_MAP}};\",\n            \"forcedDifficulty\": \"forcedDifficulty = \\\"{{server.environment.FORCED_DIFFICULTY}}\\\";\",\n            \"voteMissionPlayers\": \"voteMissionPlayers = {{server.environment.VOTE_MISSION_PLAYERS}};\",\n            \"voteThreshold\": \"voteThreshold = {{server.environment.VOTE_THRESHOLD}};\",\n            \"disconnectTimeout\": \"disconnectTimeout = {{server.environment.DISCONNECT_TIMEOUT}};\",\n            \"maxdesync\": \"maxdesync = {{server.environment.MAX_DESYNC}};\",\n            \"maxping\": \"maxping = {{server.environment.MAX_PING}};\",\n            \"maxpacketloss\": \"maxpacketloss = {{server.environment.MAX_PACKETLOSS}};\",\n            \"kickClientsOnSlowNetwork\": \"kickClientsOnSlowNetwork[] = { {{server.environment.KICK_ON_SLOW_NETWORK}} };\",\n            \"kickTimeout\": \"kickTimeout[] = { {{server.environment.KICK_TIMEOUT}} };\",\n            \"onUserConnected\": \"onUserConnected = \\\"{{server.environment.ON_USER_CONNECTED}}\\\";\",\n            \"onUserDisconnected\": \"onUserDisconnected = \\\"{{server.environment.ON_USER_DISCONNECTED}}\\\";\",\n            \"doubleIdDetected\": \"doubleIdDetected = \\\"{{server.environment.DOUBLE_ID_DETECTED}}\\\";\",\n            \"onUnsignedData\": \"onUnsignedData = \\\"{{server.environment.ON_UNSIGNED_DATA}}\\\";\",\n            \"onHackedData\": \"onHackedData = \\\"{{server.environment.ON_HACKED_DATA}}\\\";\",\n            \"onDifferentData\": \"onDifferentData = \\\"{{server.environment.ON_DIFFERENT_DATA}}\\\";\",\n            \"allowedLoadFileExtensions\": \"allowedLoadFileExtensions[] = { {{server.environment.ALLOWED_LOADFILE_EXT}} };\",\n            \"allowedPreprocessFileExtensions\": \"allowedPreprocessFileExtensions[] = { {{server.environment.ALLOWED_PREPROCESS_EXT}} };\",\n            \"allowedHTMLLoadExtensions\": \"allowedHTMLLoadExtensions[] = { {{server.environment.ALLOWED_HTMLLOAD_EXT}} };\"\n        }\n    },\n    \"battleye/launch/beserver.cfg\": {\n        \"parser\": \"file\",\n        \"find\": {\n            \"RConPassword\": \"RConPassword {{server.environment.RCON_PASSWORD}}\",\n            \"RConPort\": \"RConPort {{server.environment.RCON_PORT}}\"\n        }\n    },\n    \"battleye/launch/beserver_x64.cfg\": {\n        \"parser\": \"file\",\n        \"find\": {\n            \"RConPassword\": \"RConPassword {{server.environment.RCON_PASSWORD}}\",\n            \"RConPort\": \"RConPort {{server.environment.RCON_PORT}}\"\n        }\n    }\n}",
+        "files": "{\n    \"battleye/launch/beserver.cfg\": {\n        \"parser\": \"file\",\n        \"find\": {\n            \"RConPassword\": \"RConPassword {{server.environment.RCON_PASSWORD}}\",\n            \"RConPort\": \"RConPort {{server.environment.RCON_PORT}}\"\n        }\n    },\n    \"battleye/launch/beserver_x64.cfg\": {\n        \"parser\": \"file\",\n        \"find\": {\n            \"RConPassword\": \"RConPassword {{server.environment.RCON_PASSWORD}}\",\n            \"RConPort\": \"RConPort {{server.environment.RCON_PORT}}\"\n        }\n    }\n}",
         "startup": "{\r\n    \"done\": \"Host identity created.\"\r\n}",
         "logs": "{}",
         "stop": "^C"
@@ -82,7 +82,8 @@
             "user_viewable": true,
             "user_editable": true,
             "rules": "required|integer|between:1,99",
-            "field_type": "text"
+            "field_type": "text",
+            "sort": 4
         },
         {
             "name": "[Host] RCon Port",
@@ -96,7 +97,7 @@
                 "integer",
                 "between:0,65536"
             ],
-            "sort": 4
+            "sort": 5
         },
         {
             "name": "Automatic Updates",
@@ -108,7 +109,7 @@
             "rules": [
                 "boolean"
             ],
-            "sort": 5
+            "sort": 6
         },
         {
             "name": "Arma 3 Branch (CDLC, etc.)",
@@ -122,7 +123,7 @@
                 "string",
                 "in:public,creatordlc,profiling"
             ],
-            "sort": 6
+            "sort": 7
         },
         {
             "name": "Server Binary",
@@ -136,34 +137,7 @@
                 "string",
                 "in:arma3server,arma3server_x64,arma3serverprofiling,arma3serverprofiling_x64"
             ],
-            "sort": 7
-        },
-        {
-            "name": "Max Players",
-            "description": "Maximum number of players allowed to join the server.",
-            "env_variable": "MAX_PLAYERS",
-            "default_value": "32",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": [
-                "required",
-                "integer",
-                "gt:0"
-            ],
             "sort": 8
-        },
-        {
-            "name": "Server Password",
-            "description": "Password required to join the server. Leave blank to have no password.",
-            "env_variable": "SERVER_PASSWORD",
-            "default_value": "",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": [
-                "nullable",
-                "string"
-            ],
-            "sort": 9
         },
         {
             "name": "Modlist File (Exported from A3 Launcher)",
@@ -176,7 +150,7 @@
                 "nullable",
                 "string"
             ],
-            "sort": 10
+            "sort": 9
         },
         {
             "name": "Additional Mods",
@@ -189,7 +163,7 @@
                 "nullable",
                 "string"
             ],
-            "sort": 11
+            "sort": 10
         },
         {
             "name": "Disable Verbose Logging",
@@ -201,7 +175,7 @@
             "rules": [
                 "boolean"
             ],
-            "sort": 12
+            "sort": 11
         },
         {
             "name": "Load Mission To Memory",
@@ -213,7 +187,7 @@
             "rules": [
                 "boolean"
             ],
-            "sort": 13
+            "sort": 12
         },
         {
             "name": "Auto Initialize Mission",
@@ -225,7 +199,7 @@
             "rules": [
                 "boolean"
             ],
-            "sort": 14
+            "sort": 13
         },
         {
             "name": "RCon Password",
@@ -238,7 +212,7 @@
                 "nullable",
                 "alpha_num"
             ],
-            "sort": 15
+            "sort": 14
         },
         {
             "name": "[Advanced] Server-Side Only Mods",
@@ -251,7 +225,7 @@
                 "nullable",
                 "string"
             ],
-            "sort": 16
+            "sort": 15
         },
         {
             "name": "[Advanced] Optional Client-Side Mods",
@@ -264,7 +238,7 @@
                 "nullable",
                 "string"
             ],
-            "sort": 17
+            "sort": 16
         },
         {
             "name": "[Advanced] Enable File Patching",
@@ -276,7 +250,7 @@
             "rules": [
                 "boolean"
             ],
-            "sort": 18
+            "sort": 17
         },
         {
             "name": "[Advanced] Server FPS",
@@ -290,7 +264,7 @@
                 "integer",
                 "between:5,1000"
             ],
-            "sort": 19
+            "sort": 18
         },
         {
             "name": "[Advanced] Headless Clients (HC)",
@@ -304,7 +278,7 @@
                 "integer",
                 "between:0,5"
             ],
-            "sort": 20
+            "sort": 19
         },
         {
             "name": "[Advanced] HC Hide Console Output",
@@ -316,7 +290,7 @@
             "rules": [
                 "boolean"
             ],
-            "sort": 21
+            "sort": 20
         },
         {
             "name": "[Repair] Make Mod Files Lowercase",
@@ -328,7 +302,7 @@
             "rules": [
                 "boolean"
             ],
-            "sort": 22
+            "sort": 21
         },
         {
             "name": "[Repair] Validate Server Files",
@@ -340,7 +314,7 @@
             "rules": [
                 "boolean"
             ],
-            "sort": 23
+            "sort": 22
         },
         {
             "name": "[System] Arma 3 Dedicated Server App ID",
@@ -353,7 +327,7 @@
                 "required",
                 "integer"
             ],
-            "sort": 24
+            "sort": 23
         },
         {
             "name": "[System] basic.cfg URL",
@@ -366,479 +340,7 @@
                 "required",
                 "url"
             ],
-            "sort": 25
-        },
-        {
-            "name": "[Server] Server Name",
-            "description": "Sets the server name visible in the game browser.",
-            "env_variable": "SERVER_NAME",
-            "default_value": "Arma 3 (Ghosts of Battle)",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": [
-                "required",
-                "string"
-            ],
-            "sort": 26
-        },
-        {
-            "name": "[Server] Admin Password",
-            "description": "Password required for in-game admin access (#login). Randomized by default - change it.",
-            "env_variable": "ADMIN_PASSWORD",
-            "default_value": "GoB-xSSAD1WZX0TxzWvp",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": [
-                "nullable",
-                "string"
-            ],
-            "sort": 27
-        },
-        {
-            "name": "[Server] Command Password",
-            "description": "Password required by the alternate syntax of serverCommand server-side scripting. Blank = none.",
-            "env_variable": "COMMAND_PASSWORD",
-            "default_value": "",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": [
-                "nullable",
-                "string"
-            ],
-            "sort": 28
-        },
-        {
-            "name": "[Server] Server Admins",
-            "description": "List of Steam64 IDs for server admins. Format: \"12345678901234567\",\"76543210987654321\"",
-            "env_variable": "ADMINS",
-            "default_value": "",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": [
-                "nullable",
-                "string"
-            ],
-            "sort": 29
-        },
-        {
-            "name": "[Server] MOTD Interval",
-            "description": "Seconds between each line of the MOTD.",
-            "env_variable": "MOTD_INTERVAL",
-            "default_value": "5",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": [
-                "required",
-                "integer"
-            ],
-            "sort": 30
-        },
-        {
-            "name": "[Server] Log Timestamp Format",
-            "description": "Timestamp format in the log file: none | short | full.",
-            "env_variable": "TIMESTAMP_FORMAT",
-            "default_value": "short",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": [
-                "required",
-                "in:none,short,full"
-            ],
-            "sort": 31
-        },
-        {
-            "name": "[Server] Addon Signature Verification",
-            "description": "0 = disabled, 2 = enabled. Players with unsigned/unknown mods can't join when enabled.",
-            "env_variable": "VERIFY_SIGNATURES",
-            "default_value": "2",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": [
-                "required",
-                "in:0,2"
-            ],
-            "sort": 32
-        },
-        {
-            "name": "[Server] Disallow Duplicate IDs",
-            "description": "1 = kick players whose ID matches another connected player, 0 = allow.",
-            "env_variable": "KICK_DUPLICATE",
-            "default_value": "1",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": [
-                "required",
-                "in:0,1"
-            ],
-            "sort": 33
-        },
-        {
-            "name": "[Server] Allow File Patching",
-            "description": "0 = disallow, 1 = headless clients only, 2 = all clients.",
-            "env_variable": "ALLOWED_FILE_PATCHING",
-            "default_value": "0",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": [
-                "required",
-                "in:0,1,2"
-            ],
-            "sort": 34
-        },
-        {
-            "name": "[Server] Minimum Client Build",
-            "description": "Minimum client revision allowed to join. 0 = no restriction. Do NOT set high or nobody can connect.",
-            "env_variable": "REQUIRED_BUILD",
-            "default_value": "0",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": [
-                "required",
-                "integer"
-            ],
-            "sort": 35
-        },
-        {
-            "name": "[Server] Force LAN Mode",
-            "description": "1 = force LAN mode (only local clients can connect), 0 = normal.",
-            "env_variable": "LOOPBACK",
-            "default_value": "0",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": [
-                "required",
-                "in:0,1"
-            ],
-            "sort": 36
-        },
-        {
-            "name": "[Server] Enable UPnP",
-            "description": "1 = auto-create port mappings on UPnP/IGD routers, 0 = off.",
-            "env_variable": "UPNP",
-            "default_value": "0",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": [
-                "required",
-                "in:0,1"
-            ],
-            "sort": 37
-        },
-        {
-            "name": "[Gameplay] Advanced Flight Model",
-            "description": "0 = player decides, 1 = force Advanced, 2 = force Simple.",
-            "env_variable": "FORCE_ROTORLIB",
-            "default_value": "0",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": [
-                "required",
-                "in:0,1,2"
-            ],
-            "sort": 38
-        },
-        {
-            "name": "[Gameplay] Disable Voice Chat",
-            "description": "1 = disable in-game voice chat (VoN), 0 = allow.",
-            "env_variable": "DISABLE_VON",
-            "default_value": "0",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": [
-                "required",
-                "in:0,1"
-            ],
-            "sort": 39
-        },
-        {
-            "name": "[Gameplay] Voice Codec",
-            "description": "0 = old SPEEX codec, 1 = newer OPUS codec.",
-            "env_variable": "VON_CODEC",
-            "default_value": "1",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": [
-                "required",
-                "in:0,1"
-            ],
-            "sort": 40
-        },
-        {
-            "name": "[Gameplay] Voice Quality",
-            "description": "1-10 = 8kHz, 11-20 = 16kHz, 21-30 = 32/48kHz.",
-            "env_variable": "VON_CODEC_QUALITY",
-            "default_value": "10",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": [
-                "required",
-                "integer",
-                "between:1,30"
-            ],
-            "sort": 41
-        },
-        {
-            "name": "[Gameplay] Persistent Mission",
-            "description": "1 = mission keeps running when all players disconnect.",
-            "env_variable": "PERSISTENT",
-            "default_value": "0",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": [
-                "required",
-                "in:0,1"
-            ],
-            "sort": 42
-        },
-        {
-            "name": "[Gameplay] Allow Map Drawing",
-            "description": "1 = allow placing markers / drawing lines on the map.",
-            "env_variable": "DRAWING_IN_MAP",
-            "default_value": "1",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": [
-                "required",
-                "in:0,1"
-            ],
-            "sort": 43
-        },
-        {
-            "name": "[Gameplay] Enforce Difficulty",
-            "description": "Forces server difficulty: recruit | regular | veteran | custom.",
-            "env_variable": "FORCED_DIFFICULTY",
-            "default_value": "regular",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": [
-                "required",
-                "in:recruit,regular,veteran,custom"
-            ],
-            "sort": 44
-        },
-        {
-            "name": "[Gameplay] Min Players For Mission Vote",
-            "description": "Minimum connected players before the mission selection screen appears.",
-            "env_variable": "VOTE_MISSION_PLAYERS",
-            "default_value": "1",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": [
-                "required",
-                "integer",
-                "min:1"
-            ],
-            "sort": 45
-        },
-        {
-            "name": "[Gameplay] Vote Threshold",
-            "description": "Fraction of players (0.00-1.00) needed to pass a vote.",
-            "env_variable": "VOTE_THRESHOLD",
-            "default_value": "0.33",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": [
-                "required",
-                "numeric",
-                "between:0,1"
-            ],
-            "sort": 46
-        },
-        {
-            "name": "[Limits] Disconnect Timeout",
-            "description": "Seconds to wait before disconnecting a player who lost connection.",
-            "env_variable": "DISCONNECT_TIMEOUT",
-            "default_value": "90",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": [
-                "required",
-                "integer",
-                "between:5,90"
-            ],
-            "sort": 47
-        },
-        {
-            "name": "[Limits] Max Desync",
-            "description": "Max desync value before action is taken (see kick-on-slow-network).",
-            "env_variable": "MAX_DESYNC",
-            "default_value": "150",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": [
-                "required",
-                "integer"
-            ],
-            "sort": 48
-        },
-        {
-            "name": "[Limits] Max Ping",
-            "description": "Max latency (ms) before action is taken.",
-            "env_variable": "MAX_PING",
-            "default_value": "200",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": [
-                "required",
-                "integer"
-            ],
-            "sort": 49
-        },
-        {
-            "name": "[Limits] Max Packet Loss",
-            "description": "Max packet loss before action is taken.",
-            "env_variable": "MAX_PACKETLOSS",
-            "default_value": "50",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": [
-                "required",
-                "integer"
-            ],
-            "sort": 50
-        },
-        {
-            "name": "[Limits] Kick On Slow Network",
-            "description": "Array {MaxPing, MaxPacketLoss, MaxDesync, DisconnectTimeout}: 0 = log, 1 = kick.",
-            "env_variable": "KICK_ON_SLOW_NETWORK",
-            "default_value": "1, 1, 0, 1",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": [
-                "required",
-                "string"
-            ],
-            "sort": 51
-        },
-        {
-            "name": "[Limits] Network Kick Timeouts",
-            "description": "Temp-ban durations {manual, connectivity, BattlEye, harmless}. >0 sec, -1 = mission end, -2 = restart.",
-            "env_variable": "KICK_TIMEOUT",
-            "default_value": "{0, -1},{1, 1},{2, 5},{3, 1}",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": [
-                "required",
-                "string"
-            ],
-            "sort": 52
-        },
-        {
-            "name": "[Misc] onUserConnected Script",
-            "description": "Server-side script to run when a user connects.",
-            "env_variable": "ON_USER_CONNECTED",
-            "default_value": "",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": [
-                "nullable",
-                "string"
-            ],
-            "sort": 53
-        },
-        {
-            "name": "[Misc] onUserDisconnected Script",
-            "description": "Server-side script to run when a user disconnects.",
-            "env_variable": "ON_USER_DISCONNECTED",
-            "default_value": "",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": [
-                "nullable",
-                "string"
-            ],
-            "sort": 54
-        },
-        {
-            "name": "[Misc] doubleIdDetected Script",
-            "description": "Server-side script to run when a duplicate ID is detected.",
-            "env_variable": "DOUBLE_ID_DETECTED",
-            "default_value": "",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": [
-                "nullable",
-                "string"
-            ],
-            "sort": 55
-        },
-        {
-            "name": "[Misc] onUnsignedData Script",
-            "description": "Server-side script to run when unsigned data is detected.",
-            "env_variable": "ON_UNSIGNED_DATA",
-            "default_value": "kick (_this select 0)",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": [
-                "nullable",
-                "string"
-            ],
-            "sort": 56
-        },
-        {
-            "name": "[Misc] onHackedData Script",
-            "description": "Server-side script to run when a modified signed pbo is detected.",
-            "env_variable": "ON_HACKED_DATA",
-            "default_value": "kick (_this select 0)",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": [
-                "nullable",
-                "string"
-            ],
-            "sort": 57
-        },
-        {
-            "name": "[Misc] onDifferentData Script",
-            "description": "Server-side script to run when a different-version signed pbo is detected.",
-            "env_variable": "ON_DIFFERENT_DATA",
-            "default_value": "",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": [
-                "nullable",
-                "string"
-            ],
-            "sort": 58
-        },
-        {
-            "name": "[Misc] Allowed loadFile Extensions",
-            "description": "Extensions loadable via loadFile.",
-            "env_variable": "ALLOWED_LOADFILE_EXT",
-            "default_value": "\"hpp\",\"sqs\",\"sqf\",\"fsm\",\"cpp\",\"paa\",\"txt\",\"xml\",\"inc\",\"ext\",\"sqm\",\"ods\",\"fxy\",\"lip\",\"csv\",\"kb\",\"bik\",\"bikb\",\"html\",\"htm\",\"biedi\"",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": [
-                "required",
-                "string"
-            ],
-            "sort": 59
-        },
-        {
-            "name": "[Misc] Allowed preprocessFile Extensions",
-            "description": "Extensions loadable via preprocessFile/preprocessFileLineNumbers.",
-            "env_variable": "ALLOWED_PREPROCESS_EXT",
-            "default_value": "\"hpp\",\"sqs\",\"sqf\",\"fsm\",\"cpp\",\"paa\",\"txt\",\"xml\",\"inc\",\"ext\",\"sqm\",\"ods\",\"fxy\",\"lip\",\"csv\",\"kb\",\"bik\",\"bikb\",\"html\",\"htm\",\"biedi\"",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": [
-                "required",
-                "string"
-            ],
-            "sort": 60
-        },
-        {
-            "name": "[Misc] Allowed htmlLoad Extensions",
-            "description": "Extensions/URLs loadable via htmlLoad.",
-            "env_variable": "ALLOWED_HTMLLOAD_EXT",
-            "default_value": "\"htm\",\"html\",\"xml\",\"txt\"",
-            "user_viewable": true,
-            "user_editable": true,
-            "rules": [
-                "required",
-                "string"
-            ],
-            "sort": 61
+            "sort": 24
         }
     ]
 }
