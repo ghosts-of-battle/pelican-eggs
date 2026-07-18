@@ -76,12 +76,12 @@
         },
         {
             "name": "Mods Per Batch",
-            "description": "Number of Steam Workshop mods to download per SteamCMD login. Batching fewer logins helps avoid Steam login rate-limiting and the 4-6 hour backoff. Lower it if you still get rate-limited; raise it for fewer, larger batches. Range 1-10. Default 5.",
+            "description": "Number of Steam Workshop mods to download per SteamCMD login. Batching fewer logins helps avoid Steam login rate-limiting and the 4-6 hour backoff. Lower it if you still get rate-limited; raise it for fewer, larger batches. Range 1-99. Default 5.",
             "env_variable": "MODS_PER_BATCH",
             "default_value": "5",
             "user_viewable": true,
             "user_editable": true,
-            "rules": "required|integer|between:1,10",
+            "rules": "required|integer|between:1,99",
             "field_type": "text"
         },
         {
