@@ -20,7 +20,7 @@
         "Arma 3 (Upstream)": "ghcr.io/parkervcp/games:arma3"
     },
     "file_denylist": [],
-    "startup": "./{{SERVER_BINARY}} -par=startup_params_server.txt -world=empty -bandwidthAlg=2",
+    "startup": "./{{SERVER_BINARY}} -par=startup_params_server.txt {{PARAM_WORLD}} {{PARAM_BANDWIDTH_ALG}} {{PARAM_HUGEPAGES}} {{PARAM_ENABLE_HT}} {{PARAM_CPU_COUNT}}",
     "config": {
         "files": "{\n    \"battleye/launch/beserver.cfg\": {\n        \"parser\": \"file\",\n        \"find\": {\n            \"RConPassword\": \"RConPassword {{server.environment.RCON_PASSWORD}}\",\n            \"RConPort\": \"RConPort {{server.environment.RCON_PORT}}\"\n        }\n    },\n    \"battleye/launch/beserver_x64.cfg\": {\n        \"parser\": \"file\",\n        \"find\": {\n            \"RConPassword\": \"RConPassword {{server.environment.RCON_PASSWORD}}\",\n            \"RConPort\": \"RConPort {{server.environment.RCON_PORT}}\"\n        }\n    }\n}",
         "startup": "{\r\n    \"done\": \"Host identity created.\"\r\n}",
@@ -267,6 +267,71 @@
             "sort": 18
         },
         {
+            "name": "[Advanced] Preload World",
+            "description": "Adds \"-world=empty\" so the server boots to the lobby without preloading a full terrain, using minimal RAM/CPU until a mission selects a world. Recommended for dedicated servers. Clear this field to disable.",
+            "env_variable": "PARAM_WORLD",
+            "default_value": "-world=empty",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": [
+                "nullable",
+                "string"
+            ],
+            "sort": 19
+        },
+        {
+            "name": "[Advanced] Bandwidth Algorithm",
+            "description": "Adds \"-bandwidthAlg=2\", a newer bandwidth-estimation algorithm that can smooth networking under load. Clear this field to disable.",
+            "env_variable": "PARAM_BANDWIDTH_ALG",
+            "default_value": "-bandwidthAlg=2",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": [
+                "nullable",
+                "string"
+            ],
+            "sort": 20
+        },
+        {
+            "name": "[Advanced] Huge Pages",
+            "description": "Adds \"-hugepages\" to improve memory throughput. Requires the host kernel to have huge pages configured, otherwise it is a silent no-op or logs warnings. Leave blank unless your host supports it.",
+            "env_variable": "PARAM_HUGEPAGES",
+            "default_value": "",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": [
+                "nullable",
+                "string"
+            ],
+            "sort": 21
+        },
+        {
+            "name": "[Advanced] Enable Hyperthreading",
+            "description": "Adds \"-enableHT\" so the server uses hyperthreaded (logical) cores. Helps on some CPUs and hurts on others - test before relying on it. Leave blank to disable.",
+            "env_variable": "PARAM_ENABLE_HT",
+            "default_value": "",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": [
+                "nullable",
+                "string"
+            ],
+            "sort": 22
+        },
+        {
+            "name": "[Advanced] CPU Count",
+            "description": "Limits the number of CPU cores the server uses. Enter the full flag, e.g. \"-cpuCount=4\", ideally matching your allocated container CPU. Leave blank to let Arma auto-detect.",
+            "env_variable": "PARAM_CPU_COUNT",
+            "default_value": "",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": [
+                "nullable",
+                "string"
+            ],
+            "sort": 23
+        },
+        {
             "name": "[Advanced] Headless Clients (HC)",
             "description": "Number of Headless Clients (0 - 5) to launch parallel with the server. Be sure to set the following \"HC Connect Password\" variable if your server is password locked. PLEASE NOTE: Using a headless client is only recommended for advanced users, adds extra overhead to your permitted server resources, and is only beneficial if a properly written, HC compliant mission file is provided. See https://community.bistudio.com/wiki/Arma_3:_Headless_Client for more info.",
             "env_variable": "HC_NUM",
@@ -278,7 +343,7 @@
                 "integer",
                 "between:0,5"
             ],
-            "sort": 19
+            "sort": 24
         },
         {
             "name": "[Advanced] HC Hide Console Output",
@@ -290,7 +355,7 @@
             "rules": [
                 "boolean"
             ],
-            "sort": 20
+            "sort": 25
         },
         {
             "name": "[Repair] Make Mod Files Lowercase",
@@ -302,7 +367,7 @@
             "rules": [
                 "boolean"
             ],
-            "sort": 21
+            "sort": 26
         },
         {
             "name": "[Repair] Validate Server Files",
@@ -314,7 +379,7 @@
             "rules": [
                 "boolean"
             ],
-            "sort": 22
+            "sort": 27
         },
         {
             "name": "[System] Arma 3 Dedicated Server App ID",
@@ -327,7 +392,7 @@
                 "required",
                 "integer"
             ],
-            "sort": 23
+            "sort": 28
         },
         {
             "name": "[System] basic.cfg URL",
@@ -340,7 +405,7 @@
                 "required",
                 "url"
             ],
-            "sort": 24
+            "sort": 29
         }
     ]
 }
