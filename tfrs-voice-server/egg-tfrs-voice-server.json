@@ -1,0 +1,77 @@
+{
+    "_comment": "DO NOT EDIT: FILE GENERATED AUTOMATICALLY BY PANEL",
+    "meta": {
+        "version": "PLCN_v2",
+        "update_url": "https://raw.githubusercontent.com/ghosts-of-battle/pelican-eggs/main/tfrs-voice-server/egg-tfrs-voice-server.json"
+    },
+    "exported_at": "2026-10-18T15:10:00+00:00",
+    "uuid": "d5408d8d-a334-4b84-9bc8-27078c223445",
+    "name": "TFRS Voice Server",
+    "author": "yonvclaw@gmail.com",
+    "description": "Task Force Radio Standalone voice relay (ltsammy/task-force-radio-standalone). Pure UDP Opus relay for the TFRS Arma 3 addon. Binary ships in the image (yonvclaw/tfrs-voice-server); password is read from the TFRS_PASSWORD env var. Point TFAR_Voice_ServerHost/Port/Password in @task_force_radio/userconfig/tfar_voice.hpp on the Arma server at this allocation.",
+    "features": [],
+    "docker_images": {
+        "yonvclaw/tfrs-voice-server:v2.0.0": "yonvclaw/tfrs-voice-server:v2.0.0"
+    },
+    "file_denylist": [],
+    "startup": "tfrs-voice-server --port {{SERVER_PORT}} --max-clients {{TFRS_MAX_CLIENTS}} --timeout-seconds {{TFRS_TIMEOUT_SECONDS}} --debug-force-audible {{TFRS_DEBUG_FORCE_AUDIBLE}}",
+    "config": {
+        "files": "{}",
+        "startup": "{\r\n    \"done\": \"listening on UDP port\"\r\n}",
+        "logs": "{}",
+        "stop": "^C"
+    },
+    "scripts": {
+        "installation": {
+            "script": "#!/bin/ash\n# Nothing to install: the binary ships in the docker image.\nmkdir -p /mnt/server\necho 'TFRS voice server: no install step needed.'\n",
+            "container": "ghcr.io/parkervcp/installers:alpine",
+            "entrypoint": "ash"
+        }
+    },
+    "variables": [
+        {
+            "name": "Server password",
+            "description": "Clients must present this to connect. Empty = open server (not recommended). Must match TFAR_Voice_ServerPassword in tfar_voice.hpp.",
+            "env_variable": "TFRS_PASSWORD",
+            "default_value": "",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": ["nullable", "string", "max:128"],
+            "field_type": "text",
+            "sort": 1
+        },
+        {
+            "name": "Max clients",
+            "description": "Maximum concurrent voice connections.",
+            "env_variable": "TFRS_MAX_CLIENTS",
+            "default_value": "300",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": ["required", "integer", "min:1", "max:1000"],
+            "field_type": "text",
+            "sort": 2
+        },
+        {
+            "name": "Client timeout (seconds)",
+            "description": "A client with no ping/voice packet for this long is dropped.",
+            "env_variable": "TFRS_TIMEOUT_SECONDS",
+            "default_value": "20",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": ["required", "integer", "min:5", "max:300"],
+            "field_type": "text",
+            "sort": 3
+        },
+        {
+            "name": "Debug: force audible",
+            "description": "Every client hears every other client at full volume. Testing only.",
+            "env_variable": "TFRS_DEBUG_FORCE_AUDIBLE",
+            "default_value": "false",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": ["required", "in:true,false"],
+            "field_type": "text",
+            "sort": 4
+        }
+    ]
+}
