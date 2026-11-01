@@ -4,17 +4,17 @@
         "version": "PLCN_v2",
         "update_url": "https://raw.githubusercontent.com/ghosts-of-battle/pelican-eggs/main/livekit-voice/egg-livekit-voice.json"
     },
-    "exported_at": "2026-10-28T12:00:00+00:00",
+    "exported_at": "2026-10-29T12:00:00+00:00",
     "uuid": "961fe9e4-f5c7-498f-897b-c497b4e2b69a",
     "name": "JMSB Voice (LiveKit)",
     "author": "yonvclaw@gmail.com",
-    "description": "LiveKit media server (livekit/livekit-server, Apache 2.0) for the JMSB mod's own voice (docs/DESIGN_VOICE_LIVEKIT.md). Audio only. The primary allocation is the signalling port (TCP); add two more allocations for WebRTC: one UDP port for all media and one TCP fallback port, and put their numbers in the variables below. The Arma server needs the same API key and secret.",
+    "description": "LiveKit media server (livekit/livekit-server, Apache 2.0) for the JMSB mod's own voice (docs/DESIGN_VOICE_LIVEKIT.md). Audio only. The primary allocation is the signalling port (TCP); add two more allocations for WebRTC: one UDP port for all media and one TCP fallback port, and put their numbers in the variables below. The Arma server needs the same API key and secret. With Echo test on, a bot answers the ECHO TEST call in the mod's phone and tablet: talk, pause, and hear yourself played back. Encryption (TLS) is optional and off by default: see livekit-voice/README.md.",
     "features": [],
     "docker_images": {
-        "yonvclaw/jmsb-livekit:v1.13.9": "yonvclaw/jmsb-livekit:v1.13.9"
+        "yonvclaw/jmsb-livekit:latest": "yonvclaw/jmsb-livekit:latest"
     },
     "file_denylist": [],
-    "startup": "livekit-server --bind 0.0.0.0 --keys \"{{LIVEKIT_API_KEY}}: {{LIVEKIT_API_SECRET}}\" --config-body \"{port: {{SERVER_PORT}}, rtc: {tcp_port: {{LIVEKIT_TCP_PORT}}, udp_port: {{LIVEKIT_UDP_PORT}}, use_external_ip: {{LIVEKIT_USE_EXTERNAL_IP}}}, logging: {level: {{LIVEKIT_LOG_LEVEL}}}}\"",
+    "startup": "jmsb-voice-start",
     "config": {
         "files": "{}",
         "startup": "{\r\n    \"done\": \"starting LiveKit server\"\r\n}",
@@ -120,6 +120,34 @@
             ],
             "field_type": "text",
             "sort": 6
+        },
+        {
+            "name": "Echo test",
+            "description": "true: the echo test bot answers ECHO TEST calls from in game (each player his own room, echo-<UID>; only players the Arma server signs in can call). false: no bot.",
+            "env_variable": "ECHO_TEST",
+            "default_value": "true",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": [
+                "required",
+                "in:true,false"
+            ],
+            "field_type": "text",
+            "sort": 7
+        },
+        {
+            "name": "Encryption (TLS)",
+            "description": "false: players connect with ws:// (unencrypted signalling; the voice itself is always encrypted). true: wss:// with the node's own certificate, mounted at /mnt/voice-cert. Needs the host setup in livekit-voice/README.md first, or the server will not start.",
+            "env_variable": "TLS",
+            "default_value": "false",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": [
+                "required",
+                "in:true,false"
+            ],
+            "field_type": "text",
+            "sort": 8
         }
     ]
 }
