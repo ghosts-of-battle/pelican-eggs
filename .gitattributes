@@ -1,2 +1,4 @@
 livekit-voice/jmsb-voice-start text eol=lf
 livekit-voice/Caddyfile text eol=lf
+mumble-voice/entrypoint text eol=lf
+mumble-voice/jmsb-mumble-start text eol=lf

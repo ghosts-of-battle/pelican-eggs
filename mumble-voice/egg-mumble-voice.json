@@ -1,0 +1,93 @@
+{
+    "_comment": "DO NOT EDIT: FILE GENERATED AUTOMATICALLY BY PANEL",
+    "meta": {
+        "version": "PLCN_v2",
+        "update_url": "https://raw.githubusercontent.com/ghosts-of-battle/pelican-eggs/main/mumble-voice/egg-mumble-voice.json"
+    },
+    "exported_at": "2026-11-01T12:00:00+00:00",
+    "uuid": "642c9e2c-ce6c-41d0-a873-4163b3bce79b",
+    "name": "JMSB Voice (Mumble)",
+    "author": "yonvclaw@gmail.com",
+    "description": "Mumble server (mumble-server, BSD-3-Clause) for the JMSB mod's own voice, the Mumble choice of its Voice server type setting. Players need no Mumble app: the mod connects itself. One allocation, TCP and UDP on the same port (Mumble's is 64738). The Arma server's CBA settings need this server's address and the same password. Temporary channels on (default): each mission gets its own room. See mumble-voice/README.md.",
+    "features": [],
+    "docker_images": {
+        "yonvclaw/jmsb-mumble:latest": "yonvclaw/jmsb-mumble:latest"
+    },
+    "file_denylist": [],
+    "startup": "jmsb-mumble-start",
+    "config": {
+        "files": "{}",
+        "startup": "{\r\n    \"done\": \"Server listening on\"\r\n}",
+        "logs": "{}",
+        "stop": "^C"
+    },
+    "scripts": {
+        "installation": {
+            "script": "#!/bin/ash\n# Nothing to install: the server ships in the docker image.\nmkdir -p /mnt/server\necho 'JMSB voice (Mumble): no install step needed.'\n",
+            "container": "ghcr.io/parkervcp/installers:alpine",
+            "entrypoint": "ash"
+        }
+    },
+    "variables": [
+        {
+            "name": "Server password",
+            "description": "The password players need. The Arma server's CBA setting JMSB - Voice (Built-in) > Voice server (Mumble) > Mumble server password must be the same. Empty: no password.",
+            "env_variable": "MUMBLE_PASSWORD",
+            "default_value": "",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": [
+                "nullable",
+                "string",
+                "max:128"
+            ],
+            "field_type": "text",
+            "sort": 1
+        },
+        {
+            "name": "Max users",
+            "description": "How many may be connected at once.",
+            "env_variable": "MUMBLE_USERS",
+            "default_value": "100",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": [
+                "required",
+                "integer",
+                "min:1",
+                "max:1000"
+            ],
+            "field_type": "text",
+            "sort": 2
+        },
+        {
+            "name": "SuperUser password",
+            "description": "Sets the password of SuperUser, Mumble's admin account (log in with the Mumble app as SuperUser). Empty: left as it is; a new server gets a random one.",
+            "env_variable": "SUPERUSER_PASSWORD",
+            "default_value": "",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": [
+                "nullable",
+                "string",
+                "max:128"
+            ],
+            "field_type": "text",
+            "sort": 3
+        },
+        {
+            "name": "Temporary channels",
+            "description": "true: anyone may make a temporary channel, which the mod does for each mission's room. false: Mumble's default (registered users only); every mission then shares the root channel.",
+            "env_variable": "TEMP_CHANNELS",
+            "default_value": "true",
+            "user_viewable": true,
+            "user_editable": true,
+            "rules": [
+                "required",
+                "in:true,false"
+            ],
+            "field_type": "text",
+            "sort": 4
+        }
+    ]
+}

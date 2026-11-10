@@ -1,0 +1,7 @@
+#!/bin/bash
+# Pelican's entrypoint, as the yolks have it: into the server's folder, then
+# the egg's startup line ({{VAR}} becomes ${VAR}).
+cd /home/container || exit 1
+STARTUP_LINE=$(echo -e "${STARTUP}" | sed -e 's/{{/${/g' -e 's/}}/}/g')
+echo ":/home/container$ ${STARTUP_LINE}"
+eval exec "${STARTUP_LINE}"
